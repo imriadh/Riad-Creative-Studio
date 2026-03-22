@@ -13,6 +13,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
+function normalizeTimelineOption(timeline) {
+  if (!timeline) return "Standard";
+  if (timeline === "ASAP" || timeline === "1 week") return "Rush";
+  if (timeline === "2 weeks" || timeline === "1 month" || timeline === "Flexible") return "Standard";
+  return timeline;
+}
+
+// Helper to extract property value safely
 function getPropertyValue(properties, propertyName) {
   const prop = properties[propertyName];
   if (!prop) return null;
@@ -25,15 +33,18 @@ function getPropertyValue(properties, propertyName) {
   return null;
 }
 
+// Helper to set text property
 function setTextProperty(name, value) {
   if (!value) return { rich_text: [] };
   return { rich_text: [{ text: { content: String(value) } }] };
 }
 
+// Helper to set number property
 function setNumberProperty(value) {
   return { number: Number(value) || 0 };
 }
 
+// GET /api/services
 app.get("/api/services", async (req, res) => {
   try {
     const response = await notion.databases.query({
@@ -42,7 +53,7 @@ app.get("/api/services", async (req, res) => {
 
     const services = response.results.map((page) => ({
       id: page.id,
-      name: getPropertyValue(page.properties, "Name") || "Unnamed Service",
+      name: getPropertyValue(page.properties, "Services Name") || getPropertyValue(page.properties, "Name") || "Unnamed Service",
       price: getPropertyValue(page.properties, "Price") || 0,
       category: getPropertyValue(page.properties, "Category") || null,
     }));
@@ -54,6 +65,7 @@ app.get("/api/services", async (req, res) => {
   }
 });
 
+// POST /api/lead
 app.post("/api/lead", async (req, res) => {
   try {
     const {
@@ -69,6 +81,7 @@ app.post("/api/lead", async (req, res) => {
       discountAmount,
     } = req.body;
 
+    // Auto-assign status and stage based on total price
     let stage = "New";
     if (totalPrice >= 1000 && totalPrice < 2000) {
       stage = "Qualified";
@@ -76,6 +89,7 @@ app.post("/api/lead", async (req, res) => {
       stage = "Proposal Sent";
     }
 
+    // Calculate priority
     let priority = "Low";
     if (totalPrice >= 1500) priority = "High";
     else if (totalPrice >= 1000) priority = "Medium";
@@ -90,24 +104,19 @@ app.post("/api/lead", async (req, res) => {
           email: email || "",
         },
         Company: setTextProperty("Company", company),
-        "Budget Range": {
+        Budget: {
           select: { name: budgetRange || "Not specified" },
         },
-        Timeline: setTextProperty("Timeline", timeline),
+        Timeline: {
+          select: { name: normalizeTimelineOption(timeline) },
+        },
         Details: {
           rich_text: [{ text: { content: details || "" } }],
         },
         "Total Price": setNumberProperty(totalPrice),
-        "Selected Services": {
-          multi_select: (selectedServices || []).map((service) => ({
-            name: service,
-          })),
-        },
+        Services: setTextProperty("Services", (selectedServices || []).join(", ")),
         Bundle: setTextProperty("Bundle", bundleApplied),
         Discount: setNumberProperty(discountAmount),
-        Status: {
-          select: { name: "New" },
-        },
         Stage: {
           select: { name: stage },
         },
@@ -124,52 +133,6 @@ app.post("/api/lead", async (req, res) => {
   } catch (error) {
     console.error("Error creating lead:", error);
     res.status(500).json({ error: "Failed to create lead" });
-  }
-});
-
-app.get("/api/admin/summary", async (req, res) => {
-  try {
-    const response = await notion.databases.query({
-      database_id: LEADS_DB_ID,
-    });
-
-    const leads = response.results;
-    const totalLeads = leads.length;
-
-    let totalQuoteValue = 0;
-    const serviceFreq = {};
-    const stageCount = {};
-
-    leads.forEach((page) => {
-      const price = getPropertyValue(page.properties, "Total Price") || 0;
-      totalQuoteValue += price;
-
-      const services = getPropertyValue(page.properties, "Selected Services") || [];
-      services.forEach((service) => {
-        serviceFreq[service] = (serviceFreq[service] || 0) + 1;
-      });
-
-      const stage = getPropertyValue(page.properties, "Stage") || "Unknown";
-      stageCount[stage] = (stageCount[stage] || 0) + 1;
-    });
-
-    const averageQuoteValue = totalLeads > 0 ? Math.round(totalQuoteValue / totalLeads) : 0;
-
-    const topServices = Object.entries(serviceFreq)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5)
-      .map(([name, count]) => ({ name, count }));
-
-    res.json({
-      totalLeads,
-      averageQuoteValue,
-      totalPipelineValue: totalQuoteValue,
-      topServices,
-      stageBreakdown: stageCount,
-    });
-  } catch (error) {
-    console.error("Error fetching admin summary:", error);
-    res.status(500).json({ error: "Failed to fetch summary" });
   }
 });
 

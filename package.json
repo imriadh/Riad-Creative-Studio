@@ -8,6 +8,15 @@
     "setup": "node scripts/notion_enhance_leads_workflow.js",
     "dev": "node server.js"
   },
+  "keywords": [
+    "notion",
+    "quotes",
+    "proposals",
+    "crm",
+    "creative"
+  ],
+  "author": "Riad",
+  "license": "ISC",
   "dependencies": {
     "@notionhq/client": "^2.2.9",
     "cors": "^2.8.5",

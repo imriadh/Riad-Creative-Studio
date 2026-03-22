@@ -1,361 +1,261 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Client Proposals - Riad Creative Studio</title>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Studio Proposal | Riad Creative Studio</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#f9f9f9",
+            "surface-tint": "#595f66",
+            "tertiary": "#261e16",
+            "surface-dim": "#dadada",
+            "on-secondary-container": "#785a1a",
+            "on-secondary": "#ffffff",
+            "on-primary-fixed-variant": "#41474e",
+            "on-primary-container": "#989da5",
+            "error": "#ba1a1a",
+            "tertiary-container": "#3c332a",
+            "on-tertiary": "#ffffff",
+            "surface-variant": "#e2e2e2",
+            "on-error": "#ffffff",
+            "inverse-on-surface": "#f1f1f1",
+            "background": "#f9f9f9",
+            "outline-variant": "#c5c6cb",
+            "primary-container": "#2f353b",
+            "on-error-container": "#93000a",
+            "primary-fixed": "#dde3eb",
+            "on-tertiary-fixed-variant": "#4f453c",
+            "primary": "#1a2025",
+            "on-tertiary-container": "#a89b90",
+            "error-container": "#ffdad6",
+            "secondary": "#775a19",
+            "on-background": "#1a1c1c",
+            "inverse-primary": "#c1c7cf",
+            "surface-container-low": "#f3f3f3",
+            "on-primary-fixed": "#161c22",
+            "inverse-surface": "#2f3131",
+            "on-secondary-fixed": "#261900",
+            "surface-container-highest": "#e2e2e2",
+            "on-surface": "#1a1c1c",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed": "#f0e0d3",
+            "on-tertiary-fixed": "#221a13",
+            "surface-container": "#eeeeee",
+            "surface": "#f9f9f9",
+            "secondary-fixed": "#ffdea5",
+            "secondary-container": "#fed488",
+            "on-secondary-fixed-variant": "#5d4201",
+            "tertiary-fixed-dim": "#d3c4b8",
+            "on-primary": "#ffffff",
+            "outline": "#75777b",
+            "primary-fixed-dim": "#c1c7cf",
+            "surface-container-high": "#e8e8e8",
+            "secondary-fixed-dim": "#e9c176",
+            "on-surface-variant": "#44474a"
+          },
+          fontFamily: {
+            "headline": ["Noto Serif"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          }
+        }
+      }
+    };
+  </script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --primary: #2c3e50;
-      --secondary: #3498db;
-      --border: #ecf0f1;
-      --text: #34495e;
-      --light-bg: #f8f9fa;
+    .material-symbols-outlined {
+      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
     }
 
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      color: var(--text);
-      background-color: var(--light-bg);
-      line-height: 1.6;
+      font-family: "Inter", sans-serif;
+      background-color: #f9f9f9;
     }
 
-    header {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: white;
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    .status-message {
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      border-radius: 8px;
-      background-color: #e7f3ff;
-      border-left: 4px solid var(--secondary);
-      color: var(--primary);
-    }
-
-    .section {
-      background: white;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .section h2 {
-      color: var(--primary);
-      margin-bottom: 1.5rem;
-      font-size: 1.8rem;
-      border-bottom: 2px solid var(--secondary);
-      padding-bottom: 0.5rem;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .service-item {
-      position: relative;
-    }
-
-    .service-checkbox {
-      display: none;
-    }
-
-    .service-checkbox:checked + .service-card {
-      background: var(--secondary);
-      color: white;
-      border-color: var(--secondary);
-      transform: translateY(-2px);
-    }
-
-    .service-card {
-      display: block;
-      padding: 1.5rem;
-      border: 2px solid var(--border);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .service-card:hover {
-      border-color: var(--secondary);
-      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .service-name {
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .service-price {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--secondary);
-      margin-bottom: 0.5rem;
-    }
-
-    .service-checkbox:checked + .service-card .service-price {
-      color: white;
-    }
-
-    .quote-section {
-      background: linear-gradient(135deg, var(--light-bg) 0%, white 100%);
-      padding: 1.5rem;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      border: 1px solid var(--border);
-    }
-
-    .quote-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .quote-row:last-child {
-      border-bottom: none;
-      font-weight: bold;
-      font-size: 1.2rem;
-      color: #27ae60;
-      padding-top: 1rem;
-      border-top: 2px solid var(--secondary);
-    }
-
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: var(--primary);
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      font-size: 1rem;
-      font-family: inherit;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    @media (max-width: 768px) {
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .button-group {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    button {
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary {
-      background-color: var(--secondary);
-      color: white;
-      flex: 1;
-    }
-
-    .btn-primary:hover {
-      background-color: #2980b9;
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      background-color: var(--light-bg);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-      background-color: var(--border);
-    }
-
-    .success-message {
-      display: none;
-      background-color: #d4edda;
-      color: #155724;
-      padding: 1rem;
-      border-radius: 4px;
-      margin-bottom: 1rem;
-      border-left: 4px solid #27ae60;
-    }
-
-    .error-message {
-      display: none;
-      background-color: #f8d7da;
-      color: #721c24;
-      padding: 1rem;
-      border-radius: 4px;
-      margin-bottom: 1rem;
-      border-left: 4px solid #e74c3c;
-    }
-
-    .admin-link {
-      text-align: right;
-      margin-bottom: 1rem;
-    }
-
-    .admin-link a {
-      color: var(--secondary);
-      text-decoration: none;
-      font-size: 0.9rem;
-    }
-
-    .admin-link a:hover {
-      text-decoration: underline;
+    .editorial-title {
+      font-family: "Noto Serif", serif;
     }
   </style>
 </head>
-<body>
-  <header>
-    <h1>Client Proposals</h1>
-    <p>Riad Creative Studio - Professional Service Quotes</p>
-  </header>
+<body class="bg-surface-bright text-on-surface selection:bg-secondary-container">
+  <nav class="fixed top-0 w-full z-50 border-none bg-[#f9f9f9]/80 backdrop-blur-xl transition-all">
+    <div class="flex justify-between items-center w-full px-6 md:px-14 py-6 max-w-[1440px] mx-auto">
+      <div class="text-2xl font-bold tracking-tighter text-[#1a2025] font-['Noto_Serif']">Riad Creative Studio</div>
+      <div class="hidden md:flex gap-10 items-center font-['Noto_Serif'] antialiased tracking-tight">
+        <a class="text-[#1a2025]/60 hover:text-[#1a2025] transition-colors" href="#catalog">Services</a>
+        <a class="text-[#1a2025]/60 hover:text-[#1a2025] transition-colors" href="#details">Project Details</a>
+      </div>
+      <div class="flex items-center gap-6">
+        <button class="hidden md:block bg-primary text-on-primary px-6 py-2 rounded-lg font-medium hover:opacity-90 active:scale-95 transition-all" onclick="document.getElementById('details').scrollIntoView({behavior:'smooth'})">
+          Request Quote
+        </button>
+      </div>
+    </div>
+  </nav>
 
-  <div class="container">
-    <div class="admin-link">
-      <a href="/admin.html">📊 View Admin Dashboard</a>
+  <main class="pt-32 pb-20 px-6 md:px-14 max-w-[1440px] mx-auto">
+    <header class="mb-12 md:mb-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+        <div class="lg:col-span-8">
+          <p class="font-label uppercase tracking-[0.1em] text-secondary font-bold text-xs mb-4">Current Project Inquiry</p>
+          <h1 class="editorial-title text-5xl md:text-7xl font-bold tracking-tighter leading-tight mb-6">Client Proposals</h1>
+          <p class="text-on-surface-variant text-lg max-w-xl leading-relaxed">
+            Select the creative solutions tailored for your brand's growth. Our editorial approach ensures your studio proposal is as premium as your vision.
+          </p>
+        </div>
+        <div class="lg:col-span-4 flex justify-start lg:justify-end">
+          <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 text-right">
+            <p class="text-xs uppercase font-bold tracking-widest text-on-surface-variant mb-1">Status</p>
+            <p class="editorial-title text-xl font-bold text-secondary italic">Open for Collaboration</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div id="statusMessage" class="hidden mb-6 rounded-lg border border-outline-variant/40 bg-surface-container-low px-4 py-3 text-sm text-on-surface"></div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <section id="catalog" class="lg:col-span-8">
+        <h2 class="editorial-title text-3xl font-bold mb-10 tracking-tight">Service Catalog</h2>
+        <div id="servicesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/30 text-on-surface-variant">Loading services from Notion...</div>
+        </div>
+      </section>
+
+      <aside class="lg:col-span-4 space-y-8">
+        <div class="sticky top-32">
+          <div class="bg-primary text-on-primary p-10 rounded-xl">
+            <h2 class="editorial-title text-3xl font-bold mb-8 tracking-tight">Your Quote</h2>
+            <div class="space-y-4 mb-8">
+              <div class="flex justify-between text-on-primary-container text-sm">
+                <span>Subtotal</span>
+                <span id="quoteSubtotal">$0.00</span>
+              </div>
+              <div class="flex justify-between text-secondary-fixed text-sm">
+                <span id="quoteBundleLabel">Bundle Discount</span>
+                <span id="quoteDiscount">-$0.00</span>
+              </div>
+              <div class="h-px bg-on-primary-container/20 my-4"></div>
+              <div>
+                <p class="font-label text-[10px] uppercase tracking-widest text-on-primary-container font-bold mb-1">Estimated Total</p>
+                <p id="totalCost" class="editorial-title text-4xl font-bold">$0.00</p>
+              </div>
+            </div>
+            <div class="bg-primary-container p-4 rounded-lg flex items-center gap-4 mb-10">
+              <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+              <p id="quoteMeta" class="text-xs font-medium leading-tight">No bundle applied yet.</p>
+            </div>
+            <div class="space-y-3">
+              <button class="w-full bg-secondary text-on-secondary py-4 rounded-lg font-bold uppercase tracking-widest text-sm hover:opacity-90 active:scale-[0.98] transition-all" onclick="document.getElementById('details').scrollIntoView({behavior:'smooth'})" type="button">
+                Send Quote Request
+              </button>
+              <button id="downloadBtn" class="w-full bg-transparent border border-on-primary/30 text-on-primary py-4 rounded-lg font-bold uppercase tracking-widest text-sm hover:bg-on-primary/5 transition-all" type="button">
+                Download Estimate
+              </button>
+            </div>
+            <p id="selectedServices" class="mt-4 text-[11px] text-on-primary-container"></p>
+          </div>
+
+          <div class="mt-8 grid grid-cols-2 gap-4">
+            <div class="bg-surface-container p-4 rounded-lg text-center">
+              <p class="editorial-title text-2xl font-bold">50+</p>
+              <p class="font-label text-[10px] uppercase font-bold tracking-widest text-on-surface-variant">Projects Delivered</p>
+            </div>
+            <div class="bg-surface-container p-4 rounded-lg text-center">
+              <p class="editorial-title text-2xl font-bold">48h</p>
+              <p class="font-label text-[10px] uppercase font-bold tracking-widest text-on-surface-variant">Fast Turnaround</p>
+            </div>
+          </div>
+        </div>
+      </aside>
     </div>
 
-    <div id="statusMessage" class="status-message" style="display: none;"></div>
-
-    <section class="section">
-      <h2>Service Catalog</h2>
-      <div id="servicesContainer" class="services-grid">
-        <div class="status-message">Loading services from Notion...</div>
+    <section id="details" class="mt-32 max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="font-label text-[10px] uppercase font-bold tracking-widest text-secondary bg-secondary-container/30 px-4 py-2 rounded-full mb-6 inline-block">Response within 24 hours</span>
+        <h2 class="editorial-title text-4xl md:text-5xl font-bold tracking-tight mb-4">Project Details</h2>
+        <p class="text-on-surface-variant">Tell us more about your vision and let's bring it to life.</p>
       </div>
-    </section>
 
-    <section class="section">
-      <h2>Your Quote</h2>
-      <div class="quote-section">
-        <div class="quote-row">
-          <span>Selected Services</span>
-          <span id="selectedServices">No services yet</span>
-        </div>
-        <div class="quote-row">
-          <span>Bundle & Discount</span>
-          <span id="quoteMeta">No bundle applied</span>
-        </div>
-        <div class="quote-row">
-          <span>Estimated Total</span>
-          <span id="totalCost">$0</span>
-        </div>
-      </div>
-    </section>
+      <div id="successMessage" class="hidden mb-6 rounded-lg bg-[#ecfdf4] text-[#166534] px-4 py-3 text-sm"></div>
+      <div id="errorMessage" class="hidden mb-6 rounded-lg bg-[#fef2f2] text-[#991b1b] px-4 py-3 text-sm"></div>
 
-    <section class="section">
-      <h2>Request Quote</h2>
-      <div id="successMessage" class="success-message"></div>
-      <div id="errorMessage" class="error-message"></div>
-
-      <form id="leadForm">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="leadName">Your Name *</label>
-            <input type="text" id="leadName" name="name" required />
+      <form id="leadForm" class="space-y-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+          <div class="relative">
+            <input id="leadName" class="peer w-full bg-transparent border-0 border-b border-outline-variant/40 py-3 focus:ring-0 focus:border-secondary transition-all placeholder-transparent" placeholder="Full Name" required type="text" />
+            <label class="absolute left-0 -top-3.5 text-on-surface-variant text-xs font-bold uppercase tracking-widest" for="leadName">Full Name</label>
           </div>
-          <div class="form-group">
-            <label for="leadEmail">Email Address *</label>
-            <input type="email" id="leadEmail" name="email" required />
+          <div class="relative">
+            <input id="leadEmail" class="peer w-full bg-transparent border-0 border-b border-outline-variant/40 py-3 focus:ring-0 focus:border-secondary transition-all placeholder-transparent" placeholder="Email Address" required type="email" />
+            <label class="absolute left-0 -top-3.5 text-on-surface-variant text-xs font-bold uppercase tracking-widest" for="leadEmail">Email Address</label>
           </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="leadCompany">Company Name</label>
-            <input type="text" id="leadCompany" name="company" />
+          <div class="relative">
+            <input id="leadCompany" class="peer w-full bg-transparent border-0 border-b border-outline-variant/40 py-3 focus:ring-0 focus:border-secondary transition-all placeholder-transparent" placeholder="Company Name" type="text" />
+            <label class="absolute left-0 -top-3.5 text-on-surface-variant text-xs font-bold uppercase tracking-widest" for="leadCompany">Company Name</label>
           </div>
-          <div class="form-group">
-            <label for="leadBudgetRange">Budget Range *</label>
-            <select id="leadBudgetRange" name="budgetRange" required>
-              <option value="">-- Select a range --</option>
+          <div class="relative">
+            <select id="leadBudgetRange" class="peer w-full bg-transparent border-0 border-b border-outline-variant/40 py-3 focus:ring-0 focus:border-secondary transition-all appearance-none cursor-pointer" required>
+              <option value="" selected>-- Select a range --</option>
               <option value="$500 - $1000">$500 - $1000</option>
               <option value="$1000 - $2500">$1000 - $2500</option>
               <option value="$2500 - $5000">$2500 - $5000</option>
               <option value="$5000 - $10000">$5000 - $10000</option>
               <option value="$10000+">$10000+</option>
             </select>
+            <label class="absolute left-0 -top-3.5 text-on-surface-variant text-xs font-bold uppercase tracking-widest" for="leadBudgetRange">Budget Range</label>
           </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="leadTimeline">Timeline *</label>
-            <select id="leadTimeline" name="timeline" required>
-              <option value="">-- Select timeline --</option>
+          <div class="relative md:col-span-2">
+            <select id="leadTimeline" class="peer w-full bg-transparent border-0 border-b border-outline-variant/40 py-3 focus:ring-0 focus:border-secondary transition-all appearance-none cursor-pointer" required>
+              <option value="" selected>-- Select timeline --</option>
               <option value="ASAP">ASAP (Rush)</option>
               <option value="1 week">1 week</option>
               <option value="2 weeks">2 weeks</option>
               <option value="1 month">1 month</option>
               <option value="Flexible">Flexible</option>
             </select>
-          </div>
-          <div class="form-group">
-            <label for="leadDetails">Project Details</label>
-            <textarea id="leadDetails" name="details" placeholder="Tell us more about your project..."></textarea>
+            <label class="absolute left-0 -top-3.5 text-on-surface-variant text-xs font-bold uppercase tracking-widest" for="leadTimeline">Timeline</label>
           </div>
         </div>
 
-        <div class="button-group">
-          <button type="button" id="downloadBtn" class="btn-secondary">📥 Download Estimate</button>
-          <button type="submit" class="btn-primary">Send Quote Request</button>
+        <div class="relative">
+          <textarea id="leadDetails" class="peer w-full bg-transparent border-0 border-b border-outline-variant/40 py-3 focus:ring-0 focus:border-secondary transition-all placeholder-transparent resize-none" placeholder="Project Details" rows="4"></textarea>
+          <label class="absolute left-0 -top-3.5 text-on-surface-variant text-xs font-bold uppercase tracking-widest" for="leadDetails">Project Details</label>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-6 items-center justify-between pt-6">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">lock</span>
+            <p class="text-xs text-on-surface-variant/70 italic">Your data is encrypted and handled with care.</p>
+          </div>
+          <button class="w-full md:w-auto px-12 py-5 bg-primary text-on-primary font-bold uppercase tracking-widest text-sm rounded-lg hover:shadow-2xl hover:bg-primary-container transition-all active:scale-[0.98]" type="submit">
+            Submit Proposal Request
+          </button>
         </div>
       </form>
     </section>
-  </div>
+  </main>
+
+  <footer class="w-full mt-20 bg-[#dadada]">
+    <div class="flex flex-col md:flex-row justify-between items-center px-6 md:px-14 py-12 w-full max-w-[1440px] mx-auto">
+      <div class="font-['Inter'] uppercase tracking-[0.05em] text-[10px] font-bold text-[#1a2025] mb-8 md:mb-0">© 2026 Riad Creative Studio. All rights reserved.</div>
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <a class="font-['Inter'] uppercase tracking-[0.05em] text-[10px] font-bold text-[#1a2025]/40 hover:text-[#775a19] transition-colors" href="#">Privacy Policy</a>
+        <a class="font-['Inter'] uppercase tracking-[0.05em] text-[10px] font-bold text-[#1a2025]/40 hover:text-[#775a19] transition-colors" href="#">Terms of Service</a>
+        <a class="font-['Inter'] uppercase tracking-[0.05em] text-[10px] font-bold text-[#1a2025]/40 hover:text-[#775a19] transition-colors" href="#">Contact Support</a>
+      </div>
+    </div>
+  </footer>
 
   <script>
     let services = [];
@@ -370,8 +270,14 @@
     const totalCostEl = document.getElementById("totalCost");
     const selectedServicesEl = document.getElementById("selectedServices");
     const quoteMetaEl = document.getElementById("quoteMeta");
+    const statusEl = document.getElementById("statusMessage");
+    const successEl = document.getElementById("successMessage");
+    const errorEl = document.getElementById("errorMessage");
     const form = document.getElementById("leadForm");
     const downloadBtn = document.getElementById("downloadBtn");
+    const quoteSubtotalEl = document.getElementById("quoteSubtotal");
+    const quoteDiscountEl = document.getElementById("quoteDiscount");
+    const quoteBundleLabelEl = document.getElementById("quoteBundleLabel");
 
     function formatCurrency(value) {
       return new Intl.NumberFormat("en-US", {
@@ -388,10 +294,9 @@
 
     function getSelectedServices() {
       const checkboxes = document.querySelectorAll(".service-checkbox:checked");
-      return Array.from(checkboxes).map((checkbox) => {
-        const serviceId = checkbox.value;
-        return services.find((s) => s.id === serviceId);
-      });
+      return Array.from(checkboxes)
+        .map((checkbox) => services.find((s) => s.id === checkbox.value))
+        .filter(Boolean);
     }
 
     function calculateQuoteBreakdown(selectedServices) {
@@ -425,34 +330,64 @@
       const discountAmount = Math.round(subtotal * discountRate);
       const finalTotal = subtotal - discountAmount;
 
-      return {
-        subtotal,
-        discountAmount,
-        finalTotal,
-        bundleName,
-      };
+      return { subtotal, discountAmount, finalTotal, bundleName };
+    }
+
+    function calculatePriorityScore(totalValue, timeline) {
+      let score = 0;
+      if (totalValue >= 2000) score += 3;
+      else if (totalValue >= 1000) score += 2;
+      else score += 1;
+
+      if (timeline === "ASAP") score += 2;
+      else if (timeline === "1 week") score += 1;
+
+      return score;
+    }
+
+    function serviceIconByCategory(category) {
+      const normalized = String(category || "").toLowerCase();
+      if (normalized.includes("branding")) return "pentagon";
+      if (normalized.includes("digital")) return "share";
+      if (normalized.includes("web")) return "web";
+      if (normalized.includes("print")) return "description";
+      if (normalized.includes("seo")) return "query_stats";
+      if (normalized.includes("business")) return "present_to_all";
+      return "auto_awesome_motion";
+    }
+
+    function isPopularService(name) {
+      return ["Logo Design", "Landing Page Design", "Social Media Starter Pack"].includes(name);
     }
 
     function updateTotal() {
       const selectedServices = getSelectedServices();
+      const timeline = document.getElementById("leadTimeline") ? document.getElementById("leadTimeline").value : "Standard";
       const quote = calculateQuoteBreakdown(selectedServices);
+      const priorityScore = calculatePriorityScore(quote.finalTotal, timeline);
 
       currentQuote = {
         subtotal: quote.subtotal,
         discountAmount: quote.discountAmount,
         finalTotal: quote.finalTotal,
         bundleName: quote.bundleName,
+        priorityScore,
       };
 
       totalCostEl.textContent = formatCurrency(quote.finalTotal);
+      quoteSubtotalEl.textContent = formatCurrency(quote.subtotal);
+      quoteDiscountEl.textContent = `-${formatCurrency(quote.discountAmount)}`;
+
       selectedServicesEl.textContent = selectedServices.length
         ? `Selected: ${selectedServices.map((service) => service.name || "Unnamed Service").join(", ")}`
         : "Selected: No services yet";
 
       if (quote.bundleName) {
-        quoteMetaEl.textContent = `${quote.bundleName} applied | Discount: ${formatCurrency(quote.discountAmount)} | Subtotal: ${formatCurrency(quote.subtotal)}`;
+        quoteBundleLabelEl.textContent = `Bundle Discount (${quote.bundleName})`;
+        quoteMetaEl.textContent = `You saved ${formatCurrency(quote.discountAmount)} with ${quote.bundleName} bundle.`;
       } else {
-        quoteMetaEl.textContent = `No bundle applied | Subtotal: ${formatCurrency(quote.subtotal)}`;
+        quoteBundleLabelEl.textContent = "Bundle Discount";
+        quoteMetaEl.textContent = "No bundle applied yet.";
       }
     }
 
@@ -485,41 +420,100 @@
 
     function renderServices(items) {
       if (!items.length) {
-        servicesEl.innerHTML = "<p>No services found in Notion.</p>";
+        servicesEl.innerHTML = "<p class=\"text-sm text-on-surface-variant\">No services found in Notion.</p>";
         return;
       }
 
       servicesEl.innerHTML = items
-        .map(
-          (service) => `
-            <div class="service-item">
-              <input class="service-checkbox" type="checkbox" id="service-${service.id}" value="${service.id}" />
-              <label class="service-card" for="service-${service.id}">
-                <p class="service-name">${escapeHtml(service.name || "Unnamed Service")}</p>
-                <p class="service-price">${formatCurrency(Number(service.price || 0))}</p>
+        .map((service) => {
+          const popular = isPopularService(service.name || "");
+          return `
+            <div class="service-item group relative bg-surface-container-lowest p-8 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all border border-transparent hover:border-outline-variant/30 cursor-pointer">
+              <input class="service-checkbox absolute opacity-0 pointer-events-none" type="checkbox" id="service-${service.id}" value="${service.id}" />
+              <label class="service-card block cursor-pointer" for="service-${service.id}">
+                <div class="flex justify-between items-start mb-6">
+                  <span class="material-symbols-outlined text-3xl text-on-surface-variant">${serviceIconByCategory(service.category)}</span>
+                  ${popular ? '<span class="font-label text-[10px] font-bold uppercase tracking-widest bg-primary text-on-primary px-3 py-1 rounded-full">Most Popular</span>' : ""}
+                </div>
+                <h3 class="editorial-title text-2xl font-bold mb-2">${escapeHtml(service.name || "Unnamed Service")}</h3>
+                <p class="text-on-surface-variant text-sm mb-6 leading-snug">${service.category ? escapeHtml(service.category) + " service tailored for premium brand growth." : "Premium creative service tailored to your goals."}</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-xl font-bold text-primary">${formatCurrency(Number(service.price || 0))}</span>
+                  <span class="service-selected-indicator text-on-surface-variant text-xs font-bold uppercase tracking-tighter opacity-0 transition-opacity">Add to Quote</span>
+                </div>
               </label>
             </div>
-          `
-        )
+          `;
+        })
         .join("");
 
       servicesEl.querySelectorAll(".service-checkbox").forEach((checkbox) => {
-        checkbox.addEventListener("change", updateTotal);
+        checkbox.addEventListener("change", (event) => {
+          const card = event.target.closest(".service-item");
+          const indicator = card ? card.querySelector(".service-selected-indicator") : null;
+          if (indicator) {
+            if (event.target.checked) {
+              card.classList.add("border-secondary", "ring-4", "ring-secondary/5");
+              indicator.textContent = "Selected";
+              indicator.classList.remove("opacity-0", "text-on-surface-variant");
+              indicator.classList.add("opacity-100", "text-secondary");
+            } else {
+              card.classList.remove("border-secondary", "ring-4", "ring-secondary/5");
+              indicator.textContent = "Add to Quote";
+              indicator.classList.add("text-on-surface-variant", "opacity-0");
+              indicator.classList.remove("text-secondary", "opacity-100");
+            }
+          }
+          updateTotal();
+        });
       });
     }
 
-    async function loadServices() {
+    async function loadServices(options = {}) {
+      const { silent = false, isAutoRefresh = false } = options;
+
+      if (!silent) {
+        statusEl.textContent = "Loading services from Notion...";
+        statusEl.classList.remove("hidden");
+      }
+
+      const selectedBeforeRefresh = new Set(
+        Array.from(document.querySelectorAll(".service-checkbox:checked")).map((checkbox) => checkbox.value)
+      );
+
       try {
         const response = await fetch("/api/services");
         if (!response.ok) throw new Error("Failed to load services");
 
         const data = await response.json();
         services = data.services || [];
+
         renderServices(services);
+
+        selectedBeforeRefresh.forEach((serviceId) => {
+          const checkbox = document.getElementById(`service-${serviceId}`);
+          if (checkbox) {
+            checkbox.checked = true;
+            checkbox.dispatchEvent(new Event("change"));
+          }
+        });
+
         updateTotal();
+
+        if (!silent) {
+          statusEl.textContent = `Services loaded (${services.length} total)`;
+          statusEl.classList.remove("hidden");
+          setTimeout(() => {
+            statusEl.classList.add("hidden");
+          }, 3000);
+        }
       } catch (error) {
         console.error("Error loading services:", error);
-        servicesEl.innerHTML = "<p>Failed to load services. Please refresh the page.</p>";
+        statusEl.textContent = `Error loading services: ${error.message}`;
+        statusEl.classList.remove("hidden");
+        if (!isAutoRefresh) {
+          servicesEl.innerHTML = "<p class=\"text-sm text-error\">Failed to load services. Please refresh the page.</p>";
+        }
       }
     }
 
@@ -533,8 +527,9 @@
 
       const selectedServices = getSelectedServices();
       if (selectedServices.length === 0) {
-        document.getElementById("errorMessage").textContent = "Please select at least one service.";
-        document.getElementById("errorMessage").style.display = "block";
+        errorEl.textContent = "Please select at least one service.";
+        errorEl.classList.remove("hidden");
+        successEl.classList.add("hidden");
         return;
       }
 
@@ -549,6 +544,7 @@
         selectedServices: selectedServices.map((s) => s.name),
         bundleApplied: currentQuote.bundleName || "",
         discountAmount: currentQuote.discountAmount,
+        priorityScore: currentQuote.priorityScore,
       };
 
       try {
@@ -561,27 +557,30 @@
         if (!response.ok) throw new Error("Failed to submit quote request");
 
         const data = await response.json();
-        const successEl = document.getElementById("successMessage");
-        successEl.textContent = `✅ Quote request received! Reference ID: ${data.leadId}. We'll be in touch soon.`;
-        successEl.style.display = "block";
+        successEl.textContent = `Quote request received! Reference ID: ${data.leadId}. We'll be in touch soon.`;
+        successEl.classList.remove("hidden");
+        errorEl.classList.add("hidden");
         form.reset();
-        document.querySelectorAll(".service-checkbox").forEach((cb) => (cb.checked = false));
+        document.querySelectorAll(".service-checkbox").forEach((cb) => {
+          cb.checked = false;
+          cb.dispatchEvent(new Event("change"));
+        });
         updateTotal();
 
         setTimeout(() => {
-          successEl.style.display = "none";
+          successEl.classList.add("hidden");
         }, 5000);
       } catch (error) {
         console.error("Error submitting form:", error);
-        const errorEl = document.getElementById("errorMessage");
-        errorEl.textContent = `❌ Error: ${error.message}`;
-        errorEl.style.display = "block";
+        errorEl.textContent = `Error: ${error.message}`;
+        errorEl.classList.remove("hidden");
+        successEl.classList.add("hidden");
       }
     });
 
     loadServices();
     setInterval(() => {
-      loadServices();
+      loadServices({ silent: true, isAutoRefresh: true });
     }, 30000);
   </script>
 </body>

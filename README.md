@@ -1,94 +1,108 @@
 # Client Proposals Portal - Riad Creative Studio
 
-A professional web-based proposal and quote portal integrated with Notion for real-time service pricing and lead management.
+Premium quote and inquiry portal connected to Notion for real-time services and lead capture.
 
-## ✨ Features
+## Overview
 
-- **Service Catalog**: Browse all creative services with real-time pricing from Notion
-- **Smart Bundle Pricing**: Automatic discount application for service packages
-  - Brand Starter: 10% discount
-  - Launch Essentials: 12% discount  
-  - Brand Growth: 8% discount
-- **Lead Management**: Capture client inquiries with company, budget, timeline, and project details
-- **Admin Dashboard**: View pipeline metrics, lead counts, average quotes, and top services
-- **Notion Integration**: All data stored and synced through Notion databases
-- **Download Estimates**: Export proposal summaries as text files
+This project lets clients:
 
-## 🛠️ Tech Stack
+- Browse services loaded from Notion
+- Get instant quote updates with bundle discounts
+- Submit project details and contact info
+- Save leads directly into a Notion database
 
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript (no frameworks)
-- **Backend**: Node.js with Express.js
-- **Database**: Notion API
-- **API Client**: @notionhq/client
+## Features
 
-## 📁 Project Structure
+- Real-time service catalog from Notion (`/api/services`)
+- Bundle-based discounts only (simple pricing model)
+- Premium editorial UI in `public/index.html`
+- Lead submission API to Notion (`/api/lead`)
+- Estimate download as `.txt`
+
+## Current Project Structure
 
 ```
 .
-├── server.js                    # Express backend server
-├── public/
-│   ├── index.html              # Main quote portal (client-facing)
-│   └── admin.html              # Admin dashboard
-├── scripts/
-│   └── notion_enhance_leads_workflow.js  # Notion database setup
-├── package.json
+├── .env.example
 ├── .gitignore
-└── README.md
+├── LICENSE
+├── README.md
+├── package.json
+├── package-lock.json
+├── server.js
+├── public/
+│   └── index.html
+├── scripts/
+│   └── notion_enhance_leads_workflow.js
+└── .vscode/
+    └── mcp.json
 ```
 
-## 🚀 Quick Start
+## Structure Improvements (Safe / Non-Breaking)
 
-### Prerequisites
-- Node.js 14+
-- Notion workspace with API access
-- Notion API key and database IDs
+To keep everything stable, no existing runtime files were moved or deleted.
 
-### Installation
+Improvements applied:
 
-1. **Clone the repository**:
-```bash
-git clone https://github.com/imriadh/Riad-Creative-Studio.git
-cd Riad-Creative-Studio
-```
+- Added `.env.example` for cleaner environment onboarding
+- Updated this README to match the actual codebase and APIs
 
-2. **Install dependencies**:
+Recommended future organization (optional, no change required now):
+
+- `public/assets/` for icons/images/fonts
+- `scripts/` for all one-off Notion utilities
+- `src/` split only when backend grows larger
+
+## Quick Start
+
+1. Install dependencies:
+
 ```bash
 npm install
 ```
 
-3. **Create `.env` file** in the root directory:
+2. Create `.env` from `.env.example`:
+
+```bash
+copy .env.example .env
 ```
+
+3. Fill `.env` values:
+
+```env
+PORT=3000
 NOTION_API_KEY=your_notion_api_key_here
 NOTION_SERVICES_DB_ID=your_services_database_id
 NOTION_LEADS_DB_ID=your_leads_database_id
-PORT=3000
 ```
 
-4. **Setup Notion database properties** (one-time):
+4. Optional one-time Notion workflow setup:
+
 ```bash
 npm run setup
 ```
 
-5. **Start the server**:
+5. Run server:
+
 ```bash
 npm start
 ```
 
-6. **Open in browser**:
-- Portal: http://localhost:3000
-- Admin: http://localhost:3000/admin.html
+Open: http://localhost:3000
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### GET `/api/services`
-Retrieves all services from the Notion Services database.
 
-**Response**:
+Returns services from your Notion Services database.
+
+Example:
+
 ```json
 {
   "services": [
     {
-      "id": "service-uuid",
+      "id": "32b7440e-7d23-8065-89f3-ff9a57e60f96",
       "name": "Logo Design",
       "price": 500,
       "category": "Branding"
@@ -98,9 +112,11 @@ Retrieves all services from the Notion Services database.
 ```
 
 ### POST `/api/lead`
-Creates a new lead in the Notion Leads database.
 
-**Request Body**:
+Creates a lead in the Notion Leads database.
+
+Payload:
+
 ```json
 {
   "name": "John Doe",
@@ -116,129 +132,55 @@ Creates a new lead in the Notion Leads database.
 }
 ```
 
-### GET `/api/admin/summary`
-Returns pipeline analytics and metrics.
+## Notion Field Mapping (Current Code)
 
-**Response**:
-```json
-{
-  "totalLeads": 25,
-  "averageQuoteValue": 1250,
-  "totalPipelineValue": 31250,
-  "topServices": [
-    { "name": "Logo Design", "count": 15 }
-  ],
-  "stageBreakdown": {
-    "New": 10,
-    "Qualified": 8,
-    "Proposal Sent": 7
-  }
-}
-```
+### Services DB
 
-## 🗄️ Notion Database Schema
+- `Services Name` (preferred) or fallback `Name`
+- `Price`
+- `Category`
 
-### Services Database
-- **Name** (title)
-- **Price** (number)
-- **Category** (select)
+### Leads DB
 
-### Leads Database (Client Proposals)
-- **Name** (title) - Contact name
-- **Email** (email) - Contact email
-- **Company** (text) - Client company name
-- **Budget Range** (select) - Client budget
-- **Timeline** (text) - Project timeline
-- **Total Price** (number) - Quote amount
-- **Bundle Applied** (text) - Bundle name if applicable
-- **Discount Amount** (number) - Discount value
-- **Selected Services** (multi-select) - Services chosen
-- **Status** (select) - New/Qualified/Proposal Sent
-- **Stage** (select) - Pipeline stage
-- **Priority** (select) - Low/Medium/High
-- **Details** (rich text) - Project description
+- `Name` (title)
+- `Email` (email)
+- `Company` (rich_text)
+- `Budget` (select)
+- `Timeline` (select)
+- `Details` (rich_text)
+- `Total Price` (number)
+- `Services` (rich_text, comma-separated)
+- `Bundle` (rich_text)
+- `Discount` (number)
+- `Stage` (select)
+- `Priority` (select)
 
-## 💼 Business Logic
+## Business Logic
 
-### Bundle Detection
-The system automatically detects service combinations and applies the best discount:
-- "Brand Starter": Logo Design + Business Cards = 10% off
-- "Launch Essentials": Logo Design + Social Media Starter Pack + Landing Page Design = 12% off
-- "Brand Growth": Logo Design + Brand Identity Kit + Google Business Profile = 8% off
+Bundle discounts:
 
-### Lead Qualification
-Leads are automatically assigned:
-- **Status**: Always "New" on creation
-- **Stage** (based on quote value):
-  - New: < $1,000
-  - Qualified: $1,000 - $2,000
-  - Proposal Sent: > $2,000
-- **Priority** (based on value and timeline):
-  - Low: < $1,000
-  - Medium: $1,000 - $1,500
-  - High: ≥ $1,500
+- Brand Starter: 10%
+- Launch Essentials: 12%
+- Brand Growth: 8%
 
-## 🔧 Environment Variables
+Stage assignment by total price:
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `NOTION_API_KEY` | Notion API authentication key | Yes |
-| `NOTION_SERVICES_DB_ID` | Database ID for services | Yes |
-| `NOTION_LEADS_DB_ID` | Database ID for client proposals | Yes |
-| `PORT` | Server port (default: 3000) | No |
+- `< 1000` -> `New`
+- `1000 - 1999` -> `Qualified`
+- `>= 2000` -> `Proposal Sent`
 
-## 📝 Usage
+## Scripts
 
-### For Clients
-1. Visit the quote portal at http://localhost:3000
-2. Select desired services from the catalog
-3. (Bundles apply automatically with discounts!)
-4. Fill in your contact and project information
-5. Submit to receive a proposal
-6. Optionally download your estimate as a text file
+- `npm start` -> Run API server
+- `npm run dev` -> Run API server (same as start)
+- `npm run setup` -> Enhance Notion leads workflow properties
 
-### For Admin
-1. Visit the dashboard at http://localhost:3000/admin.html
-2. View key metrics: total leads, average quote value, pipeline value
-3. Review top-performing services
-4. Monitor pipeline by stage
-5. Click "Refresh Data" to update metrics
+## Security Notes
 
-## 🔐 Security Notes
+- Never commit `.env`
+- Keep Notion API key private
+- `.env.example` is safe to commit and share
 
-- The `.env` file contains sensitive credentials (never commit to version control)
-- `.gitignore` is configured to exclude `.env`, `node_modules/`, and logs
-- Notion API key should be kept private
-- For production, use environment variable management services
+## License
 
-## 📦 Dependencies
-
-- **express** - Web server framework
-- **cors** - Cross-origin resource sharing
-- **dotenv** - Environment variable management
-- **@notionhq/client** - Official Notion JavaScript client
-
-## 🎯 Next Steps / Future Enhancements
-
-- [ ] Email notifications when leads are submitted
-- [ ] Automated follow-up workflows in Notion
-- [ ] Service pricing tiers and custom quotes
-- [ ] Multi-currency support
-- [ ] Client login to track proposal status
-- [ ] Integration with payment processors
-- [ ] Analytics and reporting dashboard
-
-## 📞 Support
-
-For questions or support, contact Riad Creative Studio directly.
-
-## 📄 License
-
-This project is private and proprietary to Riad Creative Studio.
-
----
-
-**Created**: March 2026  
-**Repository**: https://github.com/imriadh/Riad-Creative-Studio  
-**Portal**: http://localhost:3000  
-**Admin**: http://localhost:3000/admin.html
+Private/internal project for Riad Creative Studio.

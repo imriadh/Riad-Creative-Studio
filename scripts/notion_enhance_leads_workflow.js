@@ -8,8 +8,10 @@ async function enhanceLeadsDatabase() {
   try {
     console.log("Enhancing Leads database with workflow properties...");
 
+    // Retrieve the database
     const db = await notion.databases.retrieve({ database_id: LEADS_DB_ID });
 
+    // Properties to add/update
     const propertiesToAdd = {
       Status: {
         select: {
@@ -44,9 +46,11 @@ async function enhanceLeadsDatabase() {
       Discount: { number: {} },
     };
 
+    // Update the database with new properties
     const updatePayload = { properties: {} };
 
     Object.entries(propertiesToAdd).forEach(([propName, propConfig]) => {
+      // Only add if property doesn't exist
       if (!db.properties[propName]) {
         updatePayload.properties[propName] = propConfig;
       }
