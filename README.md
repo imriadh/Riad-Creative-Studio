@@ -6,6 +6,7 @@ Premium quote and inquiry portal connected to Notion for real-time services and 
 
 - Live Website: https://riad-creative-studio.onrender.com/
 - Source Code: https://github.com/imriadh/Riad-Creative-Studio
+- Public Notion Page: https://interesting-rotate-d17.notion.site/Pricing-Calculator-32b7440e7d2380119d81c0a8bc09c6ad?source=copy_link
 
 ## Overview
 
